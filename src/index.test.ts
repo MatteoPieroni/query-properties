@@ -1,4 +1,4 @@
-import { queryProperty } from "./index";
+import queryProperty from "./index";
 
 const simpleObject = {
   prop: "test"

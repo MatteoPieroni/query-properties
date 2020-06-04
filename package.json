@@ -2,9 +2,11 @@
   "name": "query-properties",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.cjs.js",
+  "module": "index.esm.js",
+  "browser": "index.browser.js",
   "scripts": {
-    "build": "rollup -c && tsc",
+    "build": "rollup -c",
     "test": "jest --coverage"
   },
   "keywords": [

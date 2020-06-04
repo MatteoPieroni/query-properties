@@ -1,4 +1,6 @@
-export const processObjectOperator = (object: GenericObject, string: string) => {
+import { ProcessObjectOperator } from './types';
+
+export const processObjectOperator: ProcessObjectOperator = (object, string) => {
     if (!string.includes(".")) {
       return object[string];
     }

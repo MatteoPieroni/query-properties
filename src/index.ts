@@ -1,3 +1,4 @@
+import * as types from './types';
 import { processObjectOperator } from "./processObjectOperator";
 const arrayRegexp = /(\[[0-9]+\])/g;
 
@@ -11,7 +12,7 @@ const checkArrayOperator = (string: string) => {
 };
 
 
-export const queryProperty: QueryPropertyFunction = (object, string) => {
+const queryProperty: types.QueryPropertyFunction = (object, string) => {
   if (!Array.isArray(object) && object[string] !== undefined) {
     return object[string];
 	}

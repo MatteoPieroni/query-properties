@@ -1,7 +1,8 @@
-interface GenericObject {
+export interface GenericObject {
     [key: string]: unknown;
 }
 
-type NotUndefined<T> = T extends undefined ? never : T;
+export type NotUndefined<T> = T extends undefined ? never : T;
 
-type QueryPropertyFunction = (object: GenericObject | unknown[], string: string) => NotUndefined<unknown>;
+export type QueryPropertyFunction = (object: GenericObject | unknown[], string: string) => NotUndefined<unknown>;
+export type ProcessObjectOperator = (object: GenericObject, string: string) => unknown;
