@@ -1,14 +1,7 @@
 interface GenericObject {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
-interface QueryProperty {
-    object: GenericObject;
-    string: string;
-}
+type NotUndefined<T> = T extends undefined ? never : T;
 
-type QueryPropertyFunction = (args: QueryProperty) => null;
-type QueryPropertyFunction = (args: QueryProperty) => string;
-type QueryPropertyFunction = (args: QueryProperty) => number;
-type QueryPropertyFunction = (args: QueryProperty) => GenericObject;
-type QueryPropertyFunction = (args: QueryProperty) => any[];
+type QueryPropertyFunction = (object: GenericObject | unknown[], string: string) => NotUndefined<unknown>;

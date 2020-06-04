@@ -1,4 +1,4 @@
-export const processObjectOperator = (object, string) => {
+export const processObjectOperator = (object: GenericObject, string: string) => {
     if (!string.includes(".")) {
       return object[string];
     }
@@ -7,9 +7,9 @@ export const processObjectOperator = (object, string) => {
     const maxNumberOfIterations =
       ((fullStringArray.length + 1) / 2) * fullStringArray.length;
   
-    let current = fullStringArray;
+    let current = fullStringArray as (string | undefined)[];
     let popped = [];
-    let currentObject = { ...object };
+    let currentObject = { ...object } as any;
     let isCurrentObjectDirty = false;
   
     for (let i = 0; i < maxNumberOfIterations; i++) {

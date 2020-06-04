@@ -1,22 +1,22 @@
 import { processObjectOperator } from "./processObjectOperator";
 const arrayRegexp = /(\[[0-9]+\])/g;
 
-const checkObjectOperator = (string) => {
+const checkObjectOperator = (string: string) => {
   const regex = new RegExp(/(\.[a-zA-Z0-9]+)/g);
   return regex.test(string)
 };
-const checkArrayOperator = (string) => {
+const checkArrayOperator = (string: string) => {
   const regex = new RegExp(arrayRegexp);
   return regex.test(string)
 };
 
 
-export const queryProperty = (object: GenericObject, string: string): any => {
-  if (object[string] !== undefined) {
+export const queryProperty: QueryPropertyFunction = (object, string) => {
+  if (!Array.isArray(object) && object[string] !== undefined) {
     return object[string];
 	}
 	
-  let currentObject = !Array.isArray(object) ? { ...object } : [...object];
+  let currentObject = !Array.isArray(object) ? { ...object } : [...object] as any;
   const splitArray = string.split(arrayRegexp);
 
   for (let i = 0; i < splitArray.length; i++) {
@@ -32,8 +32,18 @@ export const queryProperty = (object: GenericObject, string: string): any => {
 		
     // if the current part does not have an operator access the object directly
     if (!isObjectOperator && !isArrayOperator) {
-      currentObject = currentObject[current] !== undefined ? currentObject[current] : null;
-      continue;
+      if (Array.isArray(currentObject)) {
+        return null;
+      }
+
+      if (typeof currentObject === 'object') {
+        if (currentObject[current] === undefined) {
+          return null;
+        }
+
+        currentObject = currentObject[current];
+        continue;
+      }
     }
 
 		// if the current part has one or more object operators check all possible
@@ -62,11 +72,11 @@ export const queryProperty = (object: GenericObject, string: string): any => {
         return null;
       }
 
-			const index = current.slice(1).slice(0, current.length - 2);
+			const index = current.slice(1).slice(0, current.length - 2) as unknown as number;
 			const foundValue = currentObject[index];
 
       if (foundValue !== undefined) {
-				currentObject = foundValue;
+				currentObject = foundValue as unknown;
 			} else {
 				return null;
 			}
