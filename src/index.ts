@@ -11,7 +11,7 @@ const checkArrayOperator = (string) => {
 };
 
 
-export default (object, string) => {
+export const queryProperty = (object: GenericObject, string: string): any => {
   if (object[string] !== undefined) {
     return object[string];
 	}
@@ -39,7 +39,6 @@ export default (object, string) => {
 		// if the current part has one or more object operators check all possible
 		// ordered combinations of the operators
     if (isObjectOperator) {
-      console.log(currentObject)
       if (typeof currentObject !== 'object') {
         return null;
       }
@@ -76,3 +75,5 @@ export default (object, string) => {
 
 	return currentObject;
 };
+
+export default queryProperty;
